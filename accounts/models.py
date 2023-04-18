@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+
 # Create your models here.
 
 class UserManager(BaseUserManager):
@@ -11,27 +12,27 @@ class UserManager(BaseUserManager):
             raise ValueError('Username is not valid')
     
         user = self.model(
-            email=self.normalize_email(email),
-            username=username,
-            first_name=first_name,
-            last_name=last_name,
-            )
+            email = self.normalize_email(email),
+            username = username,
+            first_name = first_name,
+            last_name = last_name,
+        )
         user.set_password(password)
         user.save(using=self._db)
         return user
 
     def create_superuser(self, first_name, last_name, username, email, password=None):
-        user = self.model(
-            email=self.normalize_email(email),
-            username=username,
-            password=password,
-            first_name=first_name,
-            last_name=last_name,    
+        user = self.create_user(
+            email = self.normalize_email(email),
+            username = username,
+            password = password,
+            first_name = first_name,
+            last_name = last_name,
         )
-        user.is_admin=True
-        user.is_active=True
-        user.is_staff=True
-        user.is_superadmin=True
+        user.is_admin = True
+        user.is_active = True
+        user.is_staff = True
+        user.is_superadmin = True
         user.save(using=self._db)
         return user
 
@@ -61,7 +62,7 @@ class User(AbstractBaseUser):
     is_superadmin=models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username','first_name', 'last_name']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
 
     objects = UserManager() 
 
@@ -74,3 +75,24 @@ class User(AbstractBaseUser):
     def has_module_perms(self, app_label):
         return True
 
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='users/profile_pictures', blank=True, null=True)
+    cover_photo = models.ImageField(upload_to='users/covers_photos', blank=True, null=True)
+    address_line_1 = models.CharField(max_length=50, blank=True, null=True)
+    address_libne_2 = models.CharField(max_length=50, blank=True, null=True)
+    country = models.CharField(max_length=15, blank=True, null=True)
+    state = models.CharField(max_length=15, blank=True, null=True)
+    city = models.CharField(max_length=15, blank=True, null=True)
+    pin_code = models.CharField(max_length=6, blank=True, null=True)
+    longitude = models.CharField(max_length=20, blank=True, null=True)
+    latitude = models.CharField(max_length=20, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+
+    def __str__(self):
+        return self.user.email
+
+    
