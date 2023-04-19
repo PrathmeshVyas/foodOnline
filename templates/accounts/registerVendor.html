@@ -13,7 +13,7 @@
                     <p class="text-center">Register yourself with foodOnline marketplace and get more customers</p>
                     <hr>
                     <div id="restaurant-sets-holder">
-                        <form class="form-fields-set foodbakery-dev-restaurant-form" method="post" action="{% url 'registerVendor' %}">
+                        <form class="form-fields-set foodbakery-dev-restaurant-form" method="post" action="{% url 'registerVendor' %}" enctype="multipart/form-data">
                             {% csrf_token %}
                             <ul class="register-add-restaurant-tab-container restaurant-information-tab-container">
                                 <li>
@@ -81,7 +81,7 @@
                                             {% endif %}
                                         {% endfor %}
 
-                                        <li style="color: red;">{{form.non_field_errors}}</li>
+                                        <li style="color: rgb(255, 0, 0);">{{form.non_field_errors}}</li>
                                     </ul>
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

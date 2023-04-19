@@ -1,10 +1,8 @@
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from accounts.forms import UserForm
 from vendor.forms import VendorForm
 from accounts.models import User, UserProfile
 from django.contrib import messages
-
+from django.shortcuts import render, redirect
 # Create your views here.
 
 
@@ -42,7 +40,7 @@ def registerUser(request):
 
 
 def registerVendor(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         # store data and create User
         form = UserForm(request.POST)
         v_form = VendorForm(request.POST, request.FILES)
@@ -68,8 +66,9 @@ def registerVendor(request):
             print(v_form.errors)
     else:   
         form = UserForm()
-        v_form = VendorForm()
+        v_form = VendorForm()       
 
-    context = {'form': form, 'v_form': v_form}
+    context = {'form': form, 'v_form': v_form}      
 
     return render(request, 'accounts/registerVendor.html', context)
+    
