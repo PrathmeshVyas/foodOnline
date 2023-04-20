@@ -1,6 +1,11 @@
 from django.urls import path
 from . import views
 
+from django.contrib import admin
+admin.site.site_header='foodOnline'
+admin.site.index_title='foodOnline administration'
+
+
 urlpatterns = [
     path('registerUser/', views.registerUser, name='registerUser'),
     path('registerVendor/', views.registerVendor, name='registerVendor'),
