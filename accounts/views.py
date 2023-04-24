@@ -8,6 +8,7 @@ from .utils import detectUser, send_verification_email
 from django.core.exceptions import PermissionDenied
 from django.utils.http import urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
+from vendor.models import Vendor
 # Create your views here.
 
 #restrict vendor from accessing cust dashboard
@@ -164,20 +165,19 @@ def custDashboard(request):
 def vendorDashboard(request):
     return render(request, 'accounts/vendorDashboard.html')
 
-
 def forgot_password(request):
     if request.method == "POST":
         email = request.POST['email']
 
         if User.objects.filter(email=email).exists():
             user=User.objects.get(email__exact=email)
-
+            # print(reset_email)
             #send reset password mail
             mail_subject='Reset your password'
             email_template='accounts/emails/reset_password_email.html'
-            send_verification_email(request, user, mail_subject, email_template)
-            messages.success(request, 'password reset link has been sent to your mail address')
-            return redirect('login')
+            # send_verification_email(request, user, mail_subject, email_template)
+            # messages.success(request, 'password reset link has been sent to your mail address')
+            return redirect('reset_password')
         else:
             messages.error(request, 'account does not exist')
             return redirect('forgot_password')
@@ -202,9 +202,10 @@ def reset_password(request):
     if request.method == 'POST':
         password=request.POST['password']
         confirm_password=request.POST['confirm_password']
-
+        
         if password == confirm_password:
             pk = request.session.get('uid')
+            print(pk)
             user = User.objects.get(pk=pk)
             user.set_password(password)
             user.is_active=True

@@ -1,6 +1,6 @@
 {% autoescape off %}
 
-HAR HAR MAHADEV {{user.first_name}}
+{{user.first_name}}
 
 please click on below link to confirm registration 
 http://{{domain}}{% url 'activate' uidb64=uid token=token %}

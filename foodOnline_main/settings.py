@@ -67,6 +67,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'accounts.context_processors.get_vendor'
             ],
         },
     },
@@ -145,9 +146,9 @@ MESSAGE_TAGS = {
 }
 
 # email configuration
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'foodOnline Marketplace <asdfghjrox@gmail.com>'
+EMAIL_HOST = 'mail.mailtest.radixweb.net'
+EMAIL_PORT = 465
+EMAIL_HOST_PASSWORD = 'Radix@web#8'
+EMAIL_STARTTLS=False 
+EMAIL_SSL_TLS=True
+DEFAULT_FROM_EMAIL = 'testdotnet@mailtest.radixweb.net'
