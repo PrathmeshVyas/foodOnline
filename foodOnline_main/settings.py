@@ -146,9 +146,9 @@ MESSAGE_TAGS = {
 }
 
 # email configuration
-EMAIL_HOST = 'mail.mailtest.radixweb.net'
-EMAIL_PORT = 465
-EMAIL_HOST_PASSWORD = 'Radix@web#8'
-EMAIL_STARTTLS=False 
-EMAIL_SSL_TLS=True
-DEFAULT_FROM_EMAIL = 'testdotnet@mailtest.radixweb.net'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_PASSWORD = 'uercbocysizcernl'
+EMAIL_USE_TLS=True
+DEFAULT_FROM_EMAIL = 'asdfghjrox@gmail.com'
