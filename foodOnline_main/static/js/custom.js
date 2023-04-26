@@ -63,6 +63,5 @@ function onPlaceChanged (){
                 $("#id_pin_code").val("");
             }
         }
-    }
- 
+    } 
 }
