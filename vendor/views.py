@@ -123,3 +123,8 @@ def delete_category(request, pk):
     category.delete()
     messages.success(request, 'Category has been deleted successfully')
     return redirect('menu_builder')
+
+# fooditems crud
+
+def add_food(request):
+    return render(request, 'vendor/add_food.html')
