@@ -1,3 +1,5 @@
+const { reduceEachLeadingCommentRange } = require("typescript");
+
 let autocomplete;
 
 function initAutoComplete(){
@@ -65,3 +67,27 @@ function onPlaceChanged (){
         }
     } 
 }
+
+$(document).ready(function(){
+    $(".add_to_cart").click(function(e){
+            e.preventDefault();
+            // alert("HAR HAR MAHADEV");
+            food_id = $(this).attr('data-id');
+            url = $(this).attr('data-url');
+            data={
+                food_id: food_id
+            }
+
+            $.ajax({
+                type: 'GET',
+                url:url,
+                data:data,
+                success: function(reaponse){
+                    alert(response)
+                }
+            })
+
+    })
+});
+
+
