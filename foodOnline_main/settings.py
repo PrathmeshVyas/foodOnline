@@ -90,7 +90,6 @@ DATABASES = {
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD':config('DB_PASSWORD'),
-        'PORT':config('DB_PORT'),
         'HOST':config('DB_HOST')
     }
 }
@@ -151,12 +150,12 @@ MESSAGE_TAGS = {
 }
 
 # email configuration
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_PASSWORD = 'uercbocysizcernl'
-EMAIL_USE_TLS=True
-DEFAULT_FROM_EMAIL = 'asdfghjrox@gmail.com'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_HOST_PASSWORD = 'uercbocysizcernl'
+# EMAIL_USE_TLS=True
+# DEFAULT_FROM_EMAIL = 'asdfghjrox@gmail.com'
 
 
-GOOGLE_API_KEY = ''
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')

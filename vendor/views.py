@@ -13,10 +13,6 @@ from menu.forms import CategoryForm, FoodItemsForm
 from django.template.defaultfilters import slugify
 
 
-
-
-
-
 def get_vendor(request):
     vendor=Vendor.objects.get(user=request.user)
     return vendor

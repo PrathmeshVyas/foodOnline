@@ -46,7 +46,7 @@ def registerUser(request):
             #send verification email
             mail_subject='Account activation mail'
             email_template='accounts/emails/account_verification_email.html'
-            send_verification_email(request, user, mail_subject, email_template)
+            # send_verification_email(request, user, mail_subject, email_template)
             # create user using form
             # password = form.cleaned_data['password']
             # user=form.save(commit=False)
@@ -87,7 +87,7 @@ def registerVendor(request):
             #send verification email
             mail_subject='Account activation mail'
             email_template='accounts/emails/account_verification_email.html'
-            send_verification_email(request, user, mail_subject, email_template)
+            # send_verification_email(request, user, mail_subject, email_template)
             vendor = v_form.save(commit=False)
             vendor.user = user
             vendor_name=v_form.cleaned_data['vendor_name']
