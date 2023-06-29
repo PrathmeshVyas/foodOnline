@@ -29,10 +29,10 @@ class Vendor(models.Model):
                 #send notification mail
                 mail_subject='congratulations! your restaurant is approved'
                 mail_template='accounts/emails/admin_approval_email.html'
-                send_notification(mail_subject, mail_template, context)
+                # send_notification(mail_subject, mail_template, context)
             else:
                 #send notification mail
                 mail_subject='Sorry! you are not eligible for publishing your menu on our marketplace'
                 mail_template='accounts/emails/admin_approval_email.html'
-                send_notification(mail_subject, mail_template, context)
+                # send_notification(mail_subject, mail_template, context)
         return super(Vendor, self).save(*args, **kwargs)

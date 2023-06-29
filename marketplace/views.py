@@ -8,7 +8,6 @@ from .context_processors import get_cart_count, get_cart_amounts
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 
-
 #Create your views here.
 def is_ajax(request):
     return request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
