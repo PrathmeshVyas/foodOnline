@@ -4,7 +4,7 @@
 {% block content %}
 <!-- Main Section Start -->
 <div class="main-section">
-    <div class="page-section restaurant-detail-image-section" style=" background: url({% if vendor.user_profile.cover_photo %} {{vendor.user_profile.cover_photo.url }} {% else %} {% static 'images/default-cover.png' %} {% endif %} no-repeat scroll 0 0 / cover;">
+    <div class="page-section restaurant-detail-image-section" style="background: url({% if vendor.user_profile.cover_photo %} {{ vendor.user_profile.cover_photo.url }} {% else %} {% static 'images/default-cover.png' %} {% endif %}) no-repeat scroll 0 0 / cover;">
         <!-- Container Start -->
         <div class="container">
             <!-- Row Start -->
@@ -16,7 +16,7 @@
                             <div class="img-holder">
                                 <figure>
                                     {% if vendor.user_profile.profile_picture %}
-                                        <img src="{{ vendor.user_profile.profile_picture }}" alt="">
+                                    <img class="thumbnail" src="{{vendor.user_profile.profile_picture.url}}" alt="">
                                     {% else %}
                                     <img src="{% static 'images/default-profile.png' %}" alt="">
                                     {% endif %}
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <div class="delivery-timing reviews-sortby">
-                            
+
                             <ul>
                                 <li>
                                     <a href="#" class="reviews-sortby-active">
@@ -41,19 +41,26 @@
                                         11:00 am - 11:00 pm <i class="icon-chevron-small-down"></i>
                                     </a>
                                     <ul class="delivery-dropdown">
-                                        <li><a href="#"><span class="opend-day">Monday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                        <li><a href="#"><span class="opend-day">Monday</span> <span
+                                                    class="opend-time"><small>:</small> 11:00 am - 11:00
                                                     pm</span></a></li>
-                                        <li><a href="#"><span class="opend-day">Tuesday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                        <li><a href="#"><span class="opend-day">Tuesday</span> <span
+                                                    class="opend-time"><small>:</small> 11:00 am - 11:00
                                                     pm</span></a></li>
-                                        <li><a href="#"><span class="opend-day">Wednesday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                        <li><a href="#"><span class="opend-day">Wednesday</span> <span
+                                                    class="opend-time"><small>:</small> 11:00 am - 11:00
                                                     pm</span></a></li>
-                                        <li><a href="#"><span class="opend-day">Thursday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                        <li><a href="#"><span class="opend-day">Thursday</span> <span
+                                                    class="opend-time"><small>:</small> 11:00 am - 11:00
                                                     pm</span></a></li>
-                                        <li><a href="#"><span class="opend-day">Friday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                        <li><a href="#"><span class="opend-day">Friday</span> <span
+                                                    class="opend-time"><small>:</small> 11:00 am - 11:00
                                                     pm</span></a></li>
-                                        <li><a href="#"><span class="opend-day">Saturday</span> <span class="opend-time"><small>:</small> 11:00 am - 11:00
+                                        <li><a href="#"><span class="opend-day">Saturday</span> <span
+                                                    class="opend-time"><small>:</small> 11:00 am - 11:00
                                                     pm</span></a></li>
-                                        <li><a href="#"><span class="opend-day">Sunday</span> <span class="opend-time close-day"><small>:</small>Closed</span></a>
+                                        <li><a href="#"><span class="opend-day">Sunday</span> <span
+                                                    class="opend-time close-day"><small>:</small>Closed</span></a>
                                         </li>
                                     </ul>
                                 </li>
@@ -89,15 +96,16 @@
                 <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
                     <div class="tabs-holder horizontal">
                         <ul class="stickynav-tabs nav nav-tabs">
-                            <li class="active"><a data-toggle="tab" href="#home"><i class="icon- icon-room_service"></i>Menu</a></li>
-                            
+                            <li class="active"><a data-toggle="tab" href="#home"><i
+                                        class="icon- icon-room_service"></i>Menu</a></li>
+
                         </ul>
                         <div class="tab-content">
                             <div id="home" class="tab-pane in active">
                                 <div class="menu-itam-holder">
-                                    
+
                                     <div id="menu-item-list-6272" class="menu-itam-list">
-                                        
+
                                         {% for category in categories %}
                                         <div class="element-title" id="menu-category-2">
                                             <h5 class="text-color">{{category}}</h5>
@@ -113,10 +121,15 @@
                                                 </div>
                                                 <div class="price-holder">
                                                     <span class="price">$ {{food.price}}</span>
-                                                    
-                                                    <a href="#" class="decrease_cart" data-id="{{food.id}}" data-url="{% url 'decrease_cart' food.id %}" style="margin-right:28px;"><i class="icon-minus text-color"></i></a>
+
+                                                    <a href="#" class="decrease_cart" data-id="{{food.id}}"
+                                                        data-url="{% url 'decrease_cart' food.id %}"
+                                                        style="margin-right:28px;"><i
+                                                            class="icon-minus text-color"></i></a>
                                                     <label id="qty-{{food.id}}">0</label>
-                                                    <a href="#" class="add_to_cart" data-id="{{food.id}}" data-url="{% url 'add_to_cart' food.id %}"><i class="icon-plus4 text-color"></i></a>
+                                                    <a href="#" class="add_to_cart" data-id="{{food.id}}"
+                                                        data-url="{% url 'add_to_cart' food.id %}"><i
+                                                            class="icon-plus4 text-color"></i></a>
                                                 </div>
                                             </li>
                                             {% endfor %}
@@ -124,11 +137,12 @@
                                         {% endfor %}
                                     </div>
                                     {% for item in cart_items %}
-                                        <span id="qty-{{item.fooditem.id}}" class="item_qty d-none" data-qty="{{item.quantity}}">{{item.quantity}}</span>
+                                    <span id="qty-{{item.fooditem.id}}" class="item_qty d-none"
+                                        data-qty="{{item.quantity}}">{{item.quantity}}</span>
                                     {% endfor %}
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
