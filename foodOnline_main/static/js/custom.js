@@ -96,7 +96,7 @@ $(document).ready(function (){
                     // sub total tax and grand total
                     applyCartAmounts(
                         response.cart_amount['subtotal'],
-                        response.cart_amount['tax'],
+                        response.cart_amount['tax_dict'],
                         response.cart_amount['grand_total']
                     )
 
@@ -142,7 +142,7 @@ $(document).ready(function (){
 
                     applyCartAmounts(
                         response.cart_amount['subtotal'],
-                        response.cart_amount['tax'],
+                        response.cart_amount['tax_dict'],
                         response.cart_amount['grand_total']
 
                     )
@@ -176,7 +176,7 @@ $(document).ready(function (){
 
                     applyCartAmounts(
                         response.cart_amount['subtotal'],
-                        response.cart_amount['tax'],
+                        response.cart_amount['tax_dict'],
                         response.cart_amount['grand_total']
 
                     )
@@ -204,11 +204,15 @@ $(document).ready(function (){
     }
 
     //apply cart amount
-    function applyCartAmounts(subtotal, tax, grand_total){
+    function applyCartAmounts(subtotal, tax_dict, grand_total){
         if (window.location.pathname=='/cart/'){
             $('#subtotal').html(subtotal)
-            $('#tax').html(tax)
             $('#total').html(grand_total)
+            for(key1 in tax_dict){
+                for(key2 in tax_dict[key1]){
+                    $('#tax-'+key1).html(tax_dict[key1][key2])
+                }
+            }
         }
     }
 
