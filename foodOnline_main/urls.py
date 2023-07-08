@@ -22,10 +22,6 @@ from . import views
 from marketplace import views as Marketplaceviews 
 
 
-
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
@@ -35,5 +31,9 @@ urlpatterns = [
     path('cart/', Marketplaceviews.cart, name="cart"),
     # search
     path('search/', Marketplaceviews.search, name="search"),
+    #checkout
+    path('checkout/', Marketplaceviews.checkout, name="checkout"),
+    #orders
+    path('orders/', include('orders.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
