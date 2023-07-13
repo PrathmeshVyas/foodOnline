@@ -18,7 +18,7 @@ class Payment(models.Model):
     def __str__(self):
         return self.transaction_id
 
-class   Order(models.Model):
+class Order(models.Model):
     STATUS = (
         ('New', 'New'),
         ('Accepted', 'Accepted'),
