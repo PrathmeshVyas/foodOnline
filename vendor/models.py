@@ -48,7 +48,8 @@ class Vendor(models.Model):
             orig=Vendor.objects.get(pk=self.pk)
             context = {
                     'user':self.user,
-                    'is_approved':self.is_approved
+                    'is_approved':self.is_approved,
+                    'to_email':self.user.email
                 }
             if orig.is_approved != self.is_approved:
                 #send notification mail
