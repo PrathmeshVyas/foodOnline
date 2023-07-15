@@ -10,6 +10,7 @@ from accounts.utils import send_notification
 from django.contrib.auth.decorators import login_required
 import razorpay
 from foodOnline_main.settings import RZP_KEY_ID, RZP_SECRET_KEY
+from orders.models import Order
 # Create your views here.
 
 client = razorpay.Client(auth=(RZP_KEY_ID, RZP_SECRET_KEY))
