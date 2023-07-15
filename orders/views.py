@@ -8,7 +8,11 @@ import simplejson as json
 from .utils import genrate_order_number
 from accounts.utils import send_notification
 from django.contrib.auth.decorators import login_required
+import razorpay
+from foodOnline_main.settings import RZP_KEY_ID, RZP_SECRET_KEY
 # Create your views here.
+
+client = razorpay.Client(auth=(RZP_KEY_ID, RZP_SECRET_KEY))
 
 @login_required(login_url='login')
 def place_order(request):
@@ -40,9 +44,27 @@ def place_order(request):
         order.save()# order id genratred
         order.order_number=genrate_order_number(order.id)
         order.save()
+
+        # razorpay payment integration
+        DATA = {
+            "amount": float(order.total) * 100,
+            "currency": "INR",
+            "receipt": "receipt#1"+order.order_number,
+            "notes": {
+                    "key1": "value3",
+                    "key2": "value2"
+            }
+        }
+        rzp_order = client.order.create(data=DATA)
+        # print(rzp_order)
+        rzp_order_id=rzp_order['id']
+        # print(rzp_order_id)
         context = {
             'order':order,
-            'cart_items':cart_items
+            'cart_items':cart_items,
+            'rzp_order_id':rzp_order_id,
+            'RZP_KEY_ID':RZP_KEY_ID,
+            'rzp_amount':float(order.total) * 100
         }
         return render(request, 'orders/placeorder.html', context)
 
