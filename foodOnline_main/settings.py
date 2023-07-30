@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'orders.request_object.RequestObjectMiddleware',
 ]
 
 ROOT_URLCONF = 'foodOnline_main.urls'
@@ -155,10 +156,19 @@ MESSAGE_TAGS = {
 
 GOOGLE_API_KEY = config('GOOGLE_API_KEY')
 
+#gdal configuration
+
+os.environ['PATH'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo') + ';' + os.environ['PATH']
+os.environ['PROJ_LIB'] = os.path.join(BASE_DIR, 'env\Lib\site-packages\osgeo\data\proj') + ';' + os.environ['PATH']
+GDAL_LIBRARY_PATH=os.path.join(BASE_DIR, 'env\lib\site-packages\osgeo\gdal304.dll')
+
+#paypal
 PAYPAL_CLIENT_ID = config('PAYPAL_CLIENT_ID')
 
 SECURE_CROSS_ORIGIN_OPENER_POLICY = 'same-origin-allow-popups'
 
+#razorpay
 RZP_KEY_ID = config('RZP_KEY_ID')
+
 
 RZP_SECRET_KEY = config('RZP_SECRET_KEY')

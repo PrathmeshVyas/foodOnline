@@ -3,7 +3,6 @@ from vendor.models import Vendor
 
 # Create your models here.
 
-
 class Category(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     category_name = models.CharField(max_length=50)

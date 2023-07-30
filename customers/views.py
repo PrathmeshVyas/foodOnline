@@ -5,7 +5,7 @@ from accounts.models import UserProfile
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from orders.models import Order, OrderedFood
-import simplejson as json
+import json as simplejson
 
 # Create your views here.
 @login_required(login_url='login')
@@ -48,7 +48,7 @@ def order_detail(request, order_number):
         sub_total=0
         for item in ordered_food:
             sub_total=item.price*item.quantity
-        tax_data=json.loads(order.tax_data)        
+        tax_data=simplejson.loads(order.tax_data)        
         context = {
             'order':order,
             'ordered_food':ordered_food,

@@ -1,16 +1,17 @@
+import razorpay
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from .forms import OrderForm
 from .models import Order, Payment, OrderedFood
-from marketplace.models import Cart
+from marketplace.models import Cart, Tax
 from marketplace.context_processors import get_cart_amounts
 import simplejson as json
 from .utils import genrate_order_number
 from accounts.utils import send_notification
 from django.contrib.auth.decorators import login_required
-import razorpay
 from foodOnline_main.settings import RZP_KEY_ID, RZP_SECRET_KEY
 from orders.models import Order
+from menu.models import FoodItem
 # Create your views here.
 
 client = razorpay.Client(auth=(RZP_KEY_ID, RZP_SECRET_KEY))
@@ -22,6 +23,39 @@ def place_order(request):
     if cart_count <= 0:
         return redirect('marketplace')
 
+    vendor_ids = []
+    for i in cart_items:
+        vendor_ids.append(i.fooditem.vendor_id)
+
+    # {"vendor_id":{"subtotal":{"tax_type": {"tax_percentage": "tax_amount"}}}}
+    subtotal=0
+    total_data = {}
+    k={}
+    get_tax = Tax.objects.filter(is_active=True)
+    for i in cart_items:
+        fooditem = FoodItem.objects.get(pk=i.fooditem.id, vendor_id__in=vendor_ids)
+        
+        v_id = fooditem.vendor.id
+        if v_id in k:
+            subtotal = k[v_id]
+            subtotal += (fooditem.price * i.quantity)
+            k[v_id] = subtotal
+        else:
+            subtotal = (fooditem.price * i.quantity)
+            k[v_id] = subtotal
+    
+        # calculate the tax
+        tax_dict = {}
+        for i in get_tax:
+            tax_type=i.tax_type
+            tax_percentage=i.tax_percentage
+            tax_amount=round((tax_percentage * subtotal)/100, 2)
+            tax_dict.update({tax_type: {str(tax_percentage) : str(tax_amount)}})
+        # print(tax_dict)
+        
+        #construct total data
+        total_data.update({fooditem.vendor.id: {str(subtotal): str(tax_dict)}})
+    print(total_data)
     sub_total = get_cart_amounts(request)['subtotal']
     total_tax = get_cart_amounts(request)['tax']
     grand_total = get_cart_amounts(request)['grand_total']
@@ -40,10 +74,12 @@ def place_order(request):
         order.user=request.user
         order.total=grand_total
         order.tax_data=json.dumps(tax_data)
-        order.total_tax=total_tax
+        order.total_data=json.dumps(total_data)
+        order.total_tax=total_tax   
         order.payment_method=request.POST['payment_method']
         order.save()# order id genratred
         order.order_number=genrate_order_number(order.id)
+        order.vendor.add(*vendor_ids)
         order.save()
 
         # razorpay payment integration
